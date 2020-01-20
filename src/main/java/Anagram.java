@@ -4,10 +4,12 @@ import static java.util.stream.Collectors.toList;
 
 public class Anagram {
 
+    private final String original;
     private final String orderedLetters;
 
     public Anagram(final String ofWord) {
 
+        this.original = ofWord;
         this.orderedLetters = transformToOrderedLetters(ofWord);
     }
 
@@ -15,6 +17,7 @@ public class Anagram {
         return toPossibleWords
                 .stream()
                 .filter(word -> word.length() == orderedLetters.length())
+                .filter(word -> !word.toLowerCase().equals(original.toLowerCase()))
                 .filter(word -> transformToOrderedLetters(word).equals(orderedLetters))
                 .collect(toList());
     }

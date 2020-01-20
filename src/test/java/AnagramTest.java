@@ -1,4 +1,3 @@
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -93,7 +92,6 @@ public class AnagramTest {
         assertTrue(detector.match(Collections.singletonList("patter")).isEmpty());
     }
 
-    @Ignore
     @Test
     public void testWordsAreNotAnagramsOfThemselvesCaseInsensitive() {
         Anagram detector = new Anagram("BANANA");
