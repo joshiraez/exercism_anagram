@@ -1,10 +1,35 @@
-/*
+import java.util.List;
 
-Since this exercise has a difficulty of > 4 it doesn't come
-with any starter implementation.
-This is so that you get to practice creating classes and methods
-which is an important part of programming in Java.
+import static java.util.stream.Collectors.toList;
 
-Please remove this comment when submitting your solution.
+public class Anagram {
 
-*/
+    private final String orderedLetters;
+
+    public Anagram(final String ofWord) {
+
+        this.orderedLetters = transformToOrderedLetters(ofWord);
+    }
+
+    public List<String> match(final List<String> toPossibleWords) {
+        return toPossibleWords
+                .stream()
+                .filter(word -> word.length() == orderedLetters.length())
+                .filter(word -> transformToOrderedLetters(word).equals(orderedLetters))
+                .collect(toList());
+    }
+
+    private String transformToOrderedLetters(final String ofWord) {
+        return ofWord
+                .toLowerCase()
+                .chars()
+                .sorted()
+                .collect(
+                        StringBuilder::new,
+                        (sb, letter) -> sb.append((char) letter),
+                        StringBuilder::append
+                ).toString();
+    }
+
+
+}
