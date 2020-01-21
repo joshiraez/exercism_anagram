@@ -16,9 +16,9 @@ public class Anagram {
     public List<String> match(final List<String> toPossibleWords) {
         return toPossibleWords
                 .stream()
-                .filter(word -> word.length() == orderedLetters.length())
-                .filter(word -> !word.toLowerCase().equals(original.toLowerCase()))
-                .filter(word -> transformToOrderedLetters(word).equals(orderedLetters))
+                .filter(this::wordAndOriginalAreSameSize)
+                .filter(this::wordIsNotTheSameIgnoringCase)
+                .filter(this::orderingTheLettersOfTheWordsGivesTheSameStringThanTheOriginalWordOrdered)
                 .collect(toList());
     }
 
@@ -34,5 +34,15 @@ public class Anagram {
                 ).toString();
     }
 
+    private boolean wordIsNotTheSameIgnoringCase(String word) {
+        return !word.equalsIgnoreCase(original);
+    }
 
+    private boolean wordAndOriginalAreSameSize(String word) {
+        return word.length() == orderedLetters.length();
+    }
+
+    private boolean orderingTheLettersOfTheWordsGivesTheSameStringThanTheOriginalWordOrdered(String word) {
+        return transformToOrderedLetters(word).equals(orderedLetters);
+    }
 }
